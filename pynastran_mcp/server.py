@@ -34,10 +34,10 @@ op2_tools = Op2Tools()
 geometry_tools = GeometryTools()
 analysis_tools = AnalysisTools()
 
-
 # ============================================================================
 # Tools - BDF Operations
 # ============================================================================
+
 
 @mcp.tool()
 async def read_bdf(filepath: str, encoding: str = "latin-1") -> str:
@@ -152,6 +152,7 @@ async def get_properties(filepath: str) -> str:
 # Tools - OP2 Results
 # ============================================================================
 
+
 @mcp.tool()
 async def read_op2(filepath: str, combine: bool = True) -> str:
     """
@@ -184,7 +185,9 @@ async def get_result_cases(filepath: str) -> str:
 
 
 @mcp.tool()
-async def get_stress(filepath: str, element_type: str = None, subcase_id: int = 1) -> str:
+async def get_stress(filepath: str,
+                     element_type: str = None,
+                     subcase_id: int = 1) -> str:
     """
     Extract stress results from OP2 file.
     
@@ -220,6 +223,7 @@ async def get_displacement(filepath: str, subcase_id: int = 1) -> str:
 # Tools - Geometry Analysis
 # ============================================================================
 
+
 @mcp.tool()
 async def check_mesh_quality(filepath: str) -> str:
     """
@@ -254,8 +258,11 @@ async def get_model_bounds(filepath: str) -> str:
 # Tools - Analysis & Reporting
 # ============================================================================
 
+
 @mcp.tool()
-async def generate_report(bdf_path: str, op2_path: str = None, output_path: str = None) -> str:
+async def generate_report(bdf_path: str,
+                          op2_path: str = None,
+                          output_path: str = None) -> str:
     """
     Generate analysis report for BDF/OP2 files.
     
@@ -269,13 +276,15 @@ async def generate_report(bdf_path: str, op2_path: str = None, output_path: str 
     """
     if output_path is None:
         output_path = "/tmp/report.txt"
-    result = await analysis_tools.generate_report(bdf_path, op2_path, output_path)
+    result = await analysis_tools.generate_report(bdf_path, op2_path,
+                                                  output_path)
     return result
 
 
 # ============================================================================
 # Resources
 # ============================================================================
+
 
 @mcp.resource("docs://bdf")
 async def get_bdf_docs() -> str:
@@ -353,42 +362,42 @@ model.read_op2('results.op2')
 # Main Entry Point
 # ============================================================================
 
+
 def main():
     """Run the MCP server with support for multiple transports."""
     parser = argparse.ArgumentParser(description="pyNastran MCP Server")
-    parser.add_argument(
-        "--transport",
-        choices=["stdio", "sse", "streamable-http"],
-        default="stdio",
-        help="Transport type (default: stdio)"
-    )
+    parser.add_argument("--transport",
+                        choices=["stdio", "sse", "streamable-http"],
+                        default="stdio",
+                        help="Transport type (default: stdio)")
     parser.add_argument(
         "--port",
         type=int,
         default=8080,
-        help="Port for SSE/streamable-http transport (default: 8080)"
-    )
+        help="Port for SSE/streamable-http transport (default: 8080)")
     parser.add_argument(
         "--host",
         default="0.0.0.0",
-        help="Host for SSE/streamable-http transport (default: 0.0.0.0)"
-    )
-    
+        help="Host for SSE/streamable-http transport (default: 0.0.0.0)")
+
     args = parser.parse_args()
-    
+
     print(f"🚀 Starting pyNastran MCP Server")
     print(f"   Transport: {args.transport}")
-    
+
     if args.transport in ["sse", "streamable-http"]:
         print(f"   URL: http://{args.host}:{args.port}")
+        # Configure host and port via settings
+        mcp.settings.host = args.host
+        mcp.settings.port = args.port
     
     # Run with specified transport
     if args.transport == "stdio":
         mcp.run()
     elif args.transport == "sse":
-        mcp.run(transport="sse", host=args.host, port=args.port)
+        mcp.run(transport="sse")
     elif args.transport == "streamable-http":
-        mcp.run(transport="streamable-http", host=args.host, port=args.port)
+        mcp.run(transport="streamable-http")
 
 
 if __name__ == "__main__":

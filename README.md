@@ -42,13 +42,21 @@ pynastran-mcp
 ### SSE Transport
 
 ```bash
-pynastran-mcp --transport sse --port 8080
+# Default: host=127.0.0.1, port=8080
+pynastran-mcp --transport sse
+
+# Custom host and port
+pynastran-mcp --transport sse --host 0.0.0.0 --port 8080
 ```
 
 ### Streamable HTTP Transport (Production)
 
 ```bash
-pynastran-mcp --transport streamable-http --port 8080
+# Default: host=127.0.0.1, port=8080
+pynastran-mcp --transport streamable-http
+
+# Custom host and port
+pynastran-mcp --transport streamable-http --host 0.0.0.0 --port 8080
 ```
 
 ## MCP Client Configuration
