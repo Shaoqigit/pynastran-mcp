@@ -1,18 +1,27 @@
 # pyNastran MCP Server
 
-MCP (Model Context Protocol) Server for pyNastran, enabling AI agents to interact with Nastran FEA models.
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![MCP](https://img.shields.io/badge/MCP-FastMCP-green.svg)](https://github.com/modelcontextprotocol/python-sdk)
+
+A Model Context Protocol (MCP) Server for pyNastran, built with **FastMCP**. Enables AI agents to interact with Nastran FEA models.
 
 ## Features
 
 - 🔧 **BDF Tools**: Read, write, and analyze Nastran input files
-- 📊 **OP2 Tools**: Extract results from Nastran output files
+- 📊 **OP2 Tools**: Extract results from Nastran output files  
 - 🔍 **Geometry Tools**: Mesh quality checks and geometric analysis
 - 📝 **Analysis Tools**: Automated report generation
-- 🎯 **MCP Protocol**: Native integration with AI Agent Desktop, Cursor, and other MCP clients
+- 🚀 **FastMCP**: Built with modern FastMCP framework
+- 🌐 **Multiple Transports**: stdio, SSE, and streamable-http
 
 ## Installation
 
-### From Source
+```bash
+pip install pynastran-mcp
+```
+
+Or install from source:
 
 ```bash
 git clone https://github.com/yourusername/pynastran-mcp.git
@@ -20,29 +29,31 @@ cd pynastran-mcp
 pip install -e .
 ```
 
-### Requirements
-
-- Python 3.10+
-- pyNastran >= 1.4.0
-- mcp >= 1.0.0
-
 ## Quick Start
 
-### Run as Stdio Server
+### Stdio Transport (Default)
+
+For MCP clients like Cherry Studio, Claude Desktop:
 
 ```bash
 pynastran-mcp
 ```
 
-### Run as SSE Server
+### SSE Transport
 
 ```bash
 pynastran-mcp --transport sse --port 8080
 ```
 
+### Streamable HTTP Transport (Production)
+
+```bash
+pynastran-mcp --transport streamable-http --port 8080
+```
+
 ## MCP Client Configuration
 
-### Cherry Studio / AI Agent Desktop / Cursor
+### Cherry Studio / Cursor / Claude Desktop
 
 Add to your MCP client configuration:
 
@@ -57,42 +68,6 @@ Add to your MCP client configuration:
 ```
 
 See [CHERRY_STUDIO_TUTORIAL.md](CHERRY_STUDIO_TUTORIAL.md) for detailed setup instructions.
-pos#old_content=
-
-### Run as Stdio Server (for AI Agent Desktop)
-
-```bash
-pynastran-mcp
-```
-
-### Run as SSE Server
-
-```bash
-pynastran-mcp --transport sse --port 8080
-```
-
-## AI Agent Desktop Configuration
-
-Add to your `mcp-client_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "pynastran": {
-      "command": "pynastran-mcp",
-      "env": {
-        "PYTHONPATH": "/path/to/your/python/packages"
-      }
-    }
-  }
-}
-```
-
-On macOS, the config is at:
-- `~/Library/Application Support/AI Agent/mcp-client_desktop_config.json`
-
-On Windows:
-- `%APPDATA%/AI Agent/mcp-client_desktop_config.json`
 
 ## Available Tools
 
@@ -103,8 +78,8 @@ On Windows:
 | `read_bdf` | Read BDF file and return model summary |
 | `get_model_info` | Get detailed model information |
 | `write_bdf` | Write model to new BDF file |
-| `get_nodes` | Get node coordinates and IDs |
-| `get_elements` | Get element connectivity and types |
+| `get_nodes` | Get node coordinates |
+| `get_elements` | Get element connectivity |
 | `get_materials` | Get material properties |
 | `get_properties` | Get property definitions |
 
@@ -132,20 +107,9 @@ On Windows:
 
 ## Usage Examples
 
-Once configured with your AI agent, you can ask:
+### With AI Agents
 
-```
-"Read the BDF file at /path/to/model.bdf and tell me about the mesh"
-"Analyze the stress results from /path/to/results.op2"
-"Check the mesh quality and suggest improvements"
-"Generate a report for my Nastran model"
-```
-
-pos#old_content=
-
-### With AI Agent Desktop
-
-Once configured, you can ask AI Agent:
+Once configured, you can ask your AI assistant:
 
 ```
 "Read the BDF file at /path/to/model.bdf and tell me about the mesh"
@@ -178,7 +142,7 @@ async def analyze_model():
 pynastran-mcp/
 ├── pynastran_mcp/
 │   ├── __init__.py
-│   ├── server.py          # Main MCP server
+│   ├── server.py          # FastMCP server with all tools
 │   └── tools/
 │       ├── __init__.py
 │       ├── bdf_tools.py   # BDF file operations
@@ -191,37 +155,32 @@ pynastran-mcp/
     └── example_usage.py
 ```
 
+## Requirements
+
+- Python 3.10+
+- pyNastran >= 1.4.0
+- mcp >= 1.0.0 (with FastMCP)
+
 ## Development
 
-### Setup Development Environment
-
 ```bash
+# Setup
 git clone https://github.com/yourusername/pynastran-mcp.git
 cd pynastran-mcp
 pip install -e ".[dev]"
-```
 
-### Run Tests
-
-```bash
+# Run tests
 pytest
-```
 
-### Code Formatting
-
-```bash
+# Code formatting
 black pynastran_mcp/
 ```
 
 ## License
 
-MIT License - see LICENSE file for details.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+MIT License - see [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
 - [pyNastran](https://github.com/SteveDoyle2/pyNastran) - The underlying Nastran interface library
-- [Model Context Protocol](https://modelcontextprotocol.io/) - The protocol enabling AI agent integration
+- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) - FastMCP framework
