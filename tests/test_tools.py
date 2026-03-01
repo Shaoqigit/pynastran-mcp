@@ -85,7 +85,7 @@ class TestAnalysisTools:
 
 def test_imports():
     """Test that all modules can be imported."""
-    from pynastran_mcp import app, main
+    from pynastran_mcp import mcp, main
     from pynastran_mcp.tools import BdfTools, Op2Tools, GeometryTools, AnalysisTools
-    assert app is not None
+    assert mcp is not None
     assert main is not None
