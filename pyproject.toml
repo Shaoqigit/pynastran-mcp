@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
+    {name = "shaoqigit", email = "shaoqigit@github.com"}
+]
     {name = "Your Name", email = "your.email@example.com"}
 ]
 keywords = ["nastran", "fea", "mcp", "ai", "agent"]

@@ -11,7 +11,7 @@ pip install pynastran-mcp
 或者从源码安装：
 
 ```bash
-git clone https://github.com/yourusername/pynastran-mcp.git
+git clone https://github.com/Shaoqigit/pynastran-mcp.git
 cd pynastran-mcp
 pip install -e .
 ```
