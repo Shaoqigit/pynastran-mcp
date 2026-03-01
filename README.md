@@ -24,7 +24,7 @@ pip install pynastran-mcp
 Or install from source:
 
 ```bash
-git clone https://github.com/yourusername/pynastran-mcp.git
+git clone https://github.com/Shaoqigit/pynastran-mcp.git
 cd pynastran-mcp
 pip install -e .
 ```
@@ -173,7 +173,7 @@ pynastran-mcp/
 
 ```bash
 # Setup
-git clone https://github.com/yourusername/pynastran-mcp.git
+git clone https://github.com/Shaoqigit/pynastran-mcp.git
 cd pynastran-mcp
 pip install -e ".[dev]"
 
