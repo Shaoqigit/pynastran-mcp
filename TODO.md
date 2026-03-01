@@ -79,9 +79,6 @@ This is the development todo list for the pyNastran MCP Server project.
 ## 🌟 Future Ideas
 
 - [ ] Web UI for model visualization
-- [ ] Integration with Jupyter notebooks
-- [ ] Support for other FEA formats (Abaqus, ANSYS)
-- [ ] Cloud deployment guides (AWS, GCP, Azure)
 - [ ] Plugin system for custom tools
 
 ---
