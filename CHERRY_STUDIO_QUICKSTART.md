@@ -5,7 +5,15 @@
 ### 1️⃣ 安装
 
 ```bash
-pip install -e /path/to/your/pyNastran/pynastran-mcp/
+pip install pynastran-mcp
+```
+
+或者从源码安装：
+
+```bash
+git clone https://github.com/yourusername/pynastran-mcp.git
+cd pynastran-mcp
+pip install -e .
 ```
 
 ### 2️⃣ 配置 Cherry Studio
@@ -19,20 +27,20 @@ pip install -e /path/to/your/pyNastran/pynastran-mcp/
   "name": "pyNastran",
   "command": "pynastran-mcp",
   "args": [],
-  "env": {
-    "PYTHONPATH": "/path/to/your/pyNastran"
-  }
+  "env": {}
 }
 ```
 
 **选择模式 B：SSE（HTTP）**
 
 先启动 Server：
+
 ```bash
 pynastran-mcp --transport sse --port 8080
 ```
 
 再配置：
+
 ```json
 {
   "name": "pyNastran-SSE",
@@ -45,7 +53,7 @@ pynastran-mcp --transport sse --port 8080
 在 Cherry Studio 对话中输入：
 
 ```
-读取这个模型 /path/to/your/pyNastran/models/sol_101_elements/static_solid_shell_bar.bdf
+读取这个模型 /path/to/your/model.bdf
 ```
 
 ---
@@ -118,8 +126,8 @@ pynastran-mcp --transport sse --port 8080
 # 检查安装
 pynastran-mcp --help
 
-# 检查路径
-export PYTHONPATH=/path/to/your/pyNastran:$PYTHONPATH
+# 检查 pyNastran 是否安装
+python -c "import pyNastran; print(pyNastran.__version__)"
 ```
 
 ### ❌ 文件找不到
@@ -135,4 +143,3 @@ export PYTHONPATH=/path/to/your/pyNastran:$PYTHONPATH
 ## 📖 完整文档
 
 详细教程见：`CHERRY_STUDIO_TUTORIAL.md`
-
